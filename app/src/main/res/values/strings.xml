@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">ImitateMeiPai</string>
+    <!--common-->
+    <string name="app_name">仿美图</string>
+    <string name="app_start_welcome_slogan">美图出品</string>
+
+    <string name="nick_name">昵称</string>
+
+    <string name="error_net_work_disconnect">无法连接服务器，请检查网络</string>
+
+    <!--美拍·-->
+    <string name="title_beatuty_shot">美拍</string>
+    <string name="title_hot">热门</string>
+    <string name="title_a_play">有戏</string>
+    <string name="title_same_city">同城</string>
+
+    <!--频道·-->
+    <string name="title_channel">频道</string>
+
 </resources>
