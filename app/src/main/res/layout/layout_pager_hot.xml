@@ -1,33 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/srl_refresh_hot_pager_data"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorListBackground">
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nsv_hot_video_list"
+    android:orientation="vertical">
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="45dp"
+        android:background="@color/colorListBackground"/>
 
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_refresh_hot_pager_data"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/v_bg_bottom_tab"
+            android:background="@color/colorListBackground">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_hot_video_list"
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/nsv_hot_video_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:dividerHeight="0dp" />
+                android:fillViewport="true">
 
-            <include
-                layout="@layout/layout_no_data"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                    <include
+                        layout="@layout/layout_no_data"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_hot_video_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="0dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <View
+            android:id="@+id/v_bg_bottom_tab"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorListBackground"/>
+</RelativeLayout>
+
+</LinearLayout>
 
 
 

@@ -2,10 +2,8 @@ package com.yqb.imitatemeipai.app.main.beautyshot;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
@@ -25,7 +23,6 @@ import com.yqb.imitatemeipai.presenter.HotPresenter;
 import com.yqb.imitatemeipai.util.ToastUtil;
 import com.yqb.imitatemeipai.view.HotView;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,15 +30,15 @@ import java.util.Map;
  * Created by QJZ on 2017/7/30.
  */
 
-public class HotFragment extends BaseFragment implements HotView,DefaultRefreshHeaderCreater,DefaultRefreshFooterCreater,
-        OnLoadmoreListener, OnRefreshListener{
+public class HotFragment extends BaseFragment implements HotView, DefaultRefreshHeaderCreater, DefaultRefreshFooterCreater,
+        OnLoadmoreListener, OnRefreshListener {
 
     private RecyclerView hotVideoList;
 
     private HotPresenter presenter;
     private HotVideoAdapter adapter;
     private Map<String, String> params = new HashMap<>();
-    private int pageNumber = 1 ;
+    private int pageNumber = 1;
 
     private SmartRefreshLayout smartRefreshLayout;
 
@@ -50,10 +47,10 @@ public class HotFragment extends BaseFragment implements HotView,DefaultRefreshH
         return R.layout.layout_pager_hot;
     }
 
-        @Override
-        protected void findViews() {
-            hotVideoList = (RecyclerView) rootView.findViewById(R.id.rv_hot_video_list);
-            smartRefreshLayout = (SmartRefreshLayout) rootView.findViewById(R.id.srl_refresh_hot_pager_data);
+    @Override
+    protected void findViews() {
+        hotVideoList = (RecyclerView) rootView.findViewById(R.id.rv_hot_video_list);
+        smartRefreshLayout = (SmartRefreshLayout) rootView.findViewById(R.id.srl_refresh_hot_pager_data);
     }
 
     @Override
@@ -62,12 +59,12 @@ public class HotFragment extends BaseFragment implements HotView,DefaultRefreshH
         SmartRefreshLayout.setDefaultRefreshFooterCreater(this);
 
         params.put("id", "1");
-        params.put("count", "21");
+        params.put("count", "20");
         params.put("page", String.valueOf(pageNumber));
 
         adapter = new HotVideoAdapter(context);
 
-        hotVideoList.setLayoutManager(new GridLayoutManager(context,2));
+        hotVideoList.setLayoutManager(new GridLayoutManager(context, 2));
         hotVideoList.setNestedScrollingEnabled(false);
         hotVideoList.setAdapter(adapter);
 
@@ -81,21 +78,22 @@ public class HotFragment extends BaseFragment implements HotView,DefaultRefreshH
 
     @Override
     public void onShowVideoData(HotVideo[] hotVideos) {
-        Log.d("HotVideo", Arrays.toString(hotVideos));
         adapter.appendArrayData(hotVideos);
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
-        pageNumber+=1;
+        pageNumber += 1;
         params.put("page", String.valueOf(pageNumber));
         presenter.loadMoreVideoData(params);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-
+        pageNumber = 1;
+        params.put("page", String.valueOf(pageNumber));
+        presenter.refreshData(params);
     }
 
     @Override
@@ -106,8 +104,27 @@ public class HotFragment extends BaseFragment implements HotView,DefaultRefreshH
     }
 
     @Override
-    public void getConnectFailed() {
+    public void onLoadMoreDataFailed() {
+        smartRefreshLayout.finishLoadmore();
+        ToastUtil.toast(context, "加载失败");
+    }
 
+    @Override
+    public void onRefreshData(HotVideo[] hotVideos) {
+        smartRefreshLayout.finishRefresh();
+        adapter.resetDataArray(hotVideos);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRefreshDataFailed() {
+        smartRefreshLayout.finishRefresh();
+        ToastUtil.toast(context, "刷新失败");
+    }
+
+    @Override
+    public void getConnectFailed() {
+        ToastUtil.toast(context, context.getResources().getString(R.string.error_net_work_disconnect));
     }
 
     @NonNull
@@ -123,7 +140,7 @@ public class HotFragment extends BaseFragment implements HotView,DefaultRefreshH
     @Override
     public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
         ClassicsFooter classicsFooter = new ClassicsFooter(context);
-        classicsFooter.setAccentColor( context.getResources().getColor(R.color.colorTextWhite));
+        classicsFooter.setAccentColor(context.getResources().getColor(R.color.colorTextWhite));
         return classicsFooter;
     }
 

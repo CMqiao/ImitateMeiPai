@@ -7,12 +7,17 @@
     android:layout_height="match_parent"
     tools:context="com.yqb.imitatemeipai.app.main.MainActivity">
 
+    <FrameLayout
+        android:id="@+id/fl_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/tl_main_bottom"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorBottom"
+        android:background="@color/colorBgBottomTab"
         app:tl_iconMargin="2dp"
         app:tl_iconHeight="28dp"
         app:tl_iconWidth="28dp"
@@ -20,11 +25,5 @@
         app:tl_textUnselectColor="@color/colorPrompt"
         app:tl_textsize="12sp"
         app:tl_indicator_height="0dp"/>
-
-    <FrameLayout
-        android:id="@+id/fl_main_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/tl_main_bottom" />
 
 </RelativeLayout>

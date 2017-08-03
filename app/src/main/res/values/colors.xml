@@ -17,4 +17,9 @@
 
     <color name="colorTextWhite">#EEEEEE</color>
 
+    <color name="colorBgChannel">#333141</color>
+
+    <color name="colorBgBottomTab">#44333333</color>
+    <color name="colorBgTopTab">#00000000</color>
+
 </resources>

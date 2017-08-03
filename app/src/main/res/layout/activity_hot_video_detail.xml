@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_hot_video_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yqb.imitatemeipai.app.main.beautyshot.HotVideoDetailActivity">
+    android:orientation="vertical"
+    tools:context="com.yqb.imitatemeipai.app.main.beautyshot.detail.VideoPlayActivity">
+
+    <include layout="@layout/layout_back" />
+
+    <ProgressBar
+        android:id="@+id/pb_hot_video_load"
+        android:layout_height="3dp"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/bg_hot_video_load_progress" />
+
     <WebView
         android:id="@+id/wv_hot_video_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </WebView>
-
-</RelativeLayout>
+        android:layout_height="match_parent" />
+</LinearLayout>

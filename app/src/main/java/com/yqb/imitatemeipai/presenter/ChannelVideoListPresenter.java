@@ -7,29 +7,30 @@ import com.yqb.imitatemeipai.data.source.DataSource;
 import com.yqb.imitatemeipai.data.source.IDataSource;
 import com.yqb.imitatemeipai.entity.response.HotVideo;
 import com.yqb.imitatemeipai.util.URLUtil;
-import com.yqb.imitatemeipai.view.HotView;
+import com.yqb.imitatemeipai.view.ChannelVideoListView;
 
 import java.util.Map;
 
 /**
- * Created by QJZ on 2017/7/31.
+ * Created by QJZ on 2017/8/2.
  */
 
-public class HotPresenter extends BasePresenter<HotView> {
+public class ChannelVideoListPresenter extends BasePresenter<ChannelVideoListView> {
 
     private IDataSource dataSource;
 
-    public HotPresenter(Context context) {
+    public ChannelVideoListPresenter(Context context) {
         this.context = context;
         dataSource = new DataSource(URLUtil.VIDEO_LIST, context);
     }
 
+
     @Override
-    public void bindIView(HotView hotView) {
-        this.view = hotView;
+    public void bindIView(ChannelVideoListView channelVideoListView) {
+        this.view = channelVideoListView;
     }
 
-    public void loadHotVideoData(Map<String, String> params) {
+    public void loadVideoData(Map<String, String> params) {
         dataSource.getJsonData(params, HotVideo[].class, new IDataSource.FetchDataCallback() {
             @Override
             public void onEntityDataLoaded(Object data) {
@@ -54,7 +55,7 @@ public class HotPresenter extends BasePresenter<HotView> {
 
             @Override
             public void onEntityDataNotAvailable() {
-            view.onLoadMoreDataFailed();
+                view.onLoadMoreDataFailed();
             }
         });
     }

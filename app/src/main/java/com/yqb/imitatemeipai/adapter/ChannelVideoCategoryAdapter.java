@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yqb.imitatemeipai.R;
-import com.yqb.imitatemeipai.app.main.beautyshot.detail.VideoPlayActivity;
-import com.yqb.imitatemeipai.entity.response.HotVideo;
-import com.yqb.imitatemeipai.widget.CircleImageView;
+import com.yqb.imitatemeipai.app.main.channel.ChannelVideoListActivity;
+import com.yqb.imitatemeipai.entity.common.VideoCategory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,28 +22,28 @@ import java.util.List;
  * Created by QJZ on 2017/7/31.
  */
 
-public class HotVideoAdapter extends RecyclerView.Adapter {
+public class ChannelVideoCategoryAdapter extends RecyclerView.Adapter {
 
-    private List<HotVideo> dataList = new ArrayList<>();
+    private List<VideoCategory> dataList = new ArrayList<>();
 
     private Context context;
 
     private LayoutInflater inflate;
 
-    public HotVideoAdapter(Context context) {
+    public ChannelVideoCategoryAdapter(Context context) {
         this.context = context;
         inflate = LayoutInflater.from(context);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new HotVideoViewHolder(inflate.inflate(R.layout.item_hot_video_list, parent, false), context);
+        return new ChannelVideoCategoryViewHolder(inflate.inflate(R.layout.item_channel_video_category_list, parent, false), context);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final HotVideoViewHolder hotVideoViewHolder = (HotVideoViewHolder) holder;
-        hotVideoViewHolder.bind((HotVideo) (dataList.get(position)));
+        final ChannelVideoCategoryViewHolder videoCategoryViewHolder = (ChannelVideoCategoryViewHolder) holder;
+        videoCategoryViewHolder.bind((VideoCategory) (dataList.get(position)));
     }
 
     @Override
@@ -57,7 +56,7 @@ public class HotVideoAdapter extends RecyclerView.Adapter {
         appendListData(dataList);
     }
 
-    public void resetDataArray(HotVideo[] dataArray){
+    public void resetDataArray(VideoCategory[] dataArray){
         this.dataList.clear();
         appendArrayData(dataArray);
     }
@@ -69,50 +68,51 @@ public class HotVideoAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public void appendArrayData(HotVideo[] dataArray) {
+    public void appendArrayData(VideoCategory[] dataArray) {
         if (dataArray != null && dataArray.length != 0) {
             appendListData(Arrays.asList(dataArray));
         }
     }
 
-    public static class HotVideoViewHolder extends RecyclerView.ViewHolder {
+    public static class ChannelVideoCategoryViewHolder extends RecyclerView.ViewHolder {
 
         private Context context;
         private View rootView;
 
-        private ImageView cover;
-        private CircleImageView avatar;
-        private TextView nickName;
-        private TextView likeCount;
+        private ImageView categoryIcon;
+        private TextView categoryTitle;
 
-        private HotVideoViewHolder(View rootView) {
+
+        private ChannelVideoCategoryViewHolder(View rootView) {
             super(rootView);
             this.rootView = rootView;
         }
 
-        public HotVideoViewHolder(View itemView, Context context) {
+        public ChannelVideoCategoryViewHolder(View itemView, Context context) {
             this(itemView);
             this.context = context;
             findViews();
         }
 
         public void findViews() {
-            cover = (ImageView) rootView.findViewById(R.id.iv_hot_video_list_item_cover);
-            avatar = (CircleImageView) rootView.findViewById(R.id.iv_hot_video_list_avatar);
-            nickName = (TextView) rootView.findViewById(R.id.tv_hot_video_list_nick_name);
-            likeCount = (TextView) rootView.findViewById(R.id.tv_hot_video_like_count);
+            categoryIcon = (ImageView) rootView.findViewById(R.id.iv_channel_video_category_icon);
+            categoryTitle = (TextView) rootView.findViewById(R.id.tv_channel_video_category_title);
         }
 
-        public void bind(final HotVideo hotVideo) {
-            Glide.with(context).load(hotVideo.getCover_pic()).into(cover);
-            Glide.with(context).load(hotVideo.getAvatar()).into(avatar);
-            nickName.setText(hotVideo.getScreen_name());
-            likeCount.setText(String.valueOf(hotVideo.getLikes_count()));
+        public void bind(final VideoCategory videoCategory) {
+            if(0 != videoCategory.getPicture()){
+                Glide.with(context).load(videoCategory.getPicture()).into(categoryIcon);
+            }
+
+            if(null != videoCategory.getTitle()){
+                categoryTitle.setText(videoCategory.getTitle());
+            }
+
             rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, VideoPlayActivity.class);
-                    intent.putExtra("hot_video", hotVideo);
+                    Intent intent = new Intent(context, ChannelVideoListActivity.class);
+                    intent.putExtra("param", videoCategory);
                     context.startActivity(intent);
                 }
             });

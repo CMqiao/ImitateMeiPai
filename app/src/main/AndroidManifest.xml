@@ -8,12 +8,12 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:hardwareAccelerated="true">
+        android:theme="@style/AppTheme">
 
         <!-- 欢迎页 -->
         <activity
@@ -31,7 +31,7 @@
         <!-- 主界面 -->
         <activity
             android:name=".app.main.MainActivity"
-            android:theme="@style/Theme.AppMain"/>
+            android:theme="@style/Theme.AppMain" />
         <!-- End of 主界面 -->
 
 
@@ -41,9 +41,11 @@
         <!-- End of 主界面 -->
 
         <activity
-            android:name=".app.main.beautyshot.HotVideoDetailActivity"
-            android:theme="@style/Theme.AppMain" />
-
+            android:name=".app.main.beautyshot.detail.VideoPlayActivity"
+            android:theme="@style/Theme.AppVideoDetail" />
+        <activity
+            android:name=".app.main.channel.ChannelVideoListActivity"
+            android:theme="@style/Theme.AppVideoDetail"/>
     </application>
 
 </manifest>

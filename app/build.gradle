@@ -39,4 +39,5 @@ dependencies {
     compile files('libs/jackson-annotations-2.5.0.jar')
     compile files('libs/jackson-core-2.5.0.jar')
     compile files('libs/jackson-databind-2.5.0.jar')
+    compile files('libs/nineoldandroids-2.4.0.jar')
 }

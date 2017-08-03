@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yqb.imitatemeipai.R;
-import com.yqb.imitatemeipai.app.main.beautyshot.detail.VideoPlayActivity;
-import com.yqb.imitatemeipai.entity.response.HotVideo;
-import com.yqb.imitatemeipai.widget.CircleImageView;
+import com.yqb.imitatemeipai.app.main.channel.ChannelVideoListActivity;
+import com.yqb.imitatemeipai.entity.common.HotTopic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,28 +22,28 @@ import java.util.List;
  * Created by QJZ on 2017/7/31.
  */
 
-public class HotVideoAdapter extends RecyclerView.Adapter {
+public class ChannelHotTopicAdapter extends RecyclerView.Adapter {
 
-    private List<HotVideo> dataList = new ArrayList<>();
+    private List<HotTopic> dataList = new ArrayList<>();
 
     private Context context;
 
     private LayoutInflater inflate;
 
-    public HotVideoAdapter(Context context) {
+    public ChannelHotTopicAdapter(Context context) {
         this.context = context;
         inflate = LayoutInflater.from(context);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new HotVideoViewHolder(inflate.inflate(R.layout.item_hot_video_list, parent, false), context);
+        return new ChannelHotTopicViewHolder(inflate.inflate(R.layout.item_channel_hot_topic_list, parent, false), context);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final HotVideoViewHolder hotVideoViewHolder = (HotVideoViewHolder) holder;
-        hotVideoViewHolder.bind((HotVideo) (dataList.get(position)));
+        final ChannelHotTopicViewHolder hotTopicViewHolder = (ChannelHotTopicViewHolder) holder;
+        hotTopicViewHolder.bind((HotTopic) (dataList.get(position)));
     }
 
     @Override
@@ -57,7 +56,7 @@ public class HotVideoAdapter extends RecyclerView.Adapter {
         appendListData(dataList);
     }
 
-    public void resetDataArray(HotVideo[] dataArray){
+    public void resetDataArray(HotTopic[] dataArray){
         this.dataList.clear();
         appendArrayData(dataArray);
     }
@@ -69,50 +68,56 @@ public class HotVideoAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public void appendArrayData(HotVideo[] dataArray) {
+    public void appendArrayData(HotTopic[] dataArray) {
         if (dataArray != null && dataArray.length != 0) {
             appendListData(Arrays.asList(dataArray));
         }
     }
 
-    public static class HotVideoViewHolder extends RecyclerView.ViewHolder {
+    public static class ChannelHotTopicViewHolder extends RecyclerView.ViewHolder {
 
         private Context context;
         private View rootView;
 
-        private ImageView cover;
-        private CircleImageView avatar;
-        private TextView nickName;
-        private TextView likeCount;
+        private ImageView coverImageView;
+        private TextView topicTitle;
+        private TextView playCount;
 
-        private HotVideoViewHolder(View rootView) {
+        private ChannelHotTopicViewHolder(View rootView) {
             super(rootView);
             this.rootView = rootView;
         }
 
-        public HotVideoViewHolder(View itemView, Context context) {
+        public ChannelHotTopicViewHolder(View itemView, Context context) {
             this(itemView);
             this.context = context;
             findViews();
         }
 
         public void findViews() {
-            cover = (ImageView) rootView.findViewById(R.id.iv_hot_video_list_item_cover);
-            avatar = (CircleImageView) rootView.findViewById(R.id.iv_hot_video_list_avatar);
-            nickName = (TextView) rootView.findViewById(R.id.tv_hot_video_list_nick_name);
-            likeCount = (TextView) rootView.findViewById(R.id.tv_hot_video_like_count);
+            coverImageView = (ImageView) rootView.findViewById(R.id.iv_channel_hot_topic_icon);
+            topicTitle = (TextView) rootView.findViewById(R.id.tv_channel_hot_topic_name);
+            playCount = (TextView) rootView.findViewById(R.id.tv_channel_hot_topic_play_count);
         }
 
-        public void bind(final HotVideo hotVideo) {
-            Glide.with(context).load(hotVideo.getCover_pic()).into(cover);
-            Glide.with(context).load(hotVideo.getAvatar()).into(avatar);
-            nickName.setText(hotVideo.getScreen_name());
-            likeCount.setText(String.valueOf(hotVideo.getLikes_count()));
+        public void bind(final HotTopic hotTopic) {
+            if(null != hotTopic.getCoverUrl()){
+                Glide.with(context).load(hotTopic.getCoverUrl()).into(coverImageView);
+            }
+
+            if(null != hotTopic.getTopic()){
+                topicTitle.setText("#"+hotTopic.getTopic()+"#");
+            }
+
+            if(null != hotTopic.getPlayCount()){
+                playCount.setText(hotTopic.getPlayCount()+"万播放");
+            }
+
             rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, VideoPlayActivity.class);
-                    intent.putExtra("hot_video", hotVideo);
+                    Intent intent = new Intent(context, ChannelVideoListActivity.class);
+                    intent.putExtra("param", hotTopic);
                     context.startActivity(intent);
                 }
             });

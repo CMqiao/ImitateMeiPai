@@ -23,7 +23,7 @@ import java.util.List;
  * Created by QJZ on 2017/7/31.
  */
 
-public class HotVideoAdapter extends RecyclerView.Adapter {
+public class ChannelVideoListAdapter extends RecyclerView.Adapter {
 
     private List<HotVideo> dataList = new ArrayList<>();
 
@@ -31,7 +31,7 @@ public class HotVideoAdapter extends RecyclerView.Adapter {
 
     private LayoutInflater inflate;
 
-    public HotVideoAdapter(Context context) {
+    public ChannelVideoListAdapter(Context context) {
         this.context = context;
         inflate = LayoutInflater.from(context);
     }

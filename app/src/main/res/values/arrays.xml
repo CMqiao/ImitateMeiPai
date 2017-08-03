@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="a_play_video_list">
+        <item>http://mvvideo10.meitudata.com/597cc111dea917818_H264_7.mp4</item>
+    </string-array>
+
+    <string-array name="video_category_name">
+        <item>搞笑</item>
+        <item>明星</item>
+        <item>男神</item>
+        <item>女神</item>
+        <item>音乐</item>
+        <item>舞蹈</item>
+        <item>美食</item>
+        <item>美妆</item>
+        <item>宝宝</item>
+        <item>萌宠</item>
+        <item>手工</item>
+        <item>穿秀</item>
+        <item>吃秀</item>
+    </string-array>
+
+    <integer-array  name="video_category_id">
+        <item>13</item>
+        <item>16</item>
+        <item>31</item>
+        <item>19</item>
+        <item>62</item>
+        <item>63</item>
+        <item>59</item>
+        <item>27</item>
+        <item>18</item>
+        <item>6</item>
+        <item>450</item>
+        <item>460</item>
+        <item>423</item>
+    </integer-array>
+
+
+    <string-array name="hot_topic_name">
+        <item>有戏节奏大神</item>
+        <item>美拍有嘻哈</item>
+        <item>大头摇</item>
+        <item>学台湾女生说话</item>
+        <item>我最见不得女人哭</item>
+        <item>互赠雷品挑战</item>
+        <item>脱掉</item>
+        <item>跨界喜剧王</item>
+        <item>顶顶大法</item>
+        <item>逗比舞林大会</item>
+        <item>夏日出游穿搭</item>
+        <item>不用想了</item>
+        <item>不要生气歌</item>
+        <item>官人我还要</item>
+        <item>变个衣服穿</item>
+        <item>全民内八摇</item>
+        <item>有戏变美大赛</item>
+        <item>一秒吃西瓜大赛</item>
+        <item>姐姐妹妹站起来</item>
+        <item>有戏演技王</item>
+        <item>我的小可爱</item>
+    </string-array>
+
+    <string-array name="hot_topic_pic">
+        <item>http://mvimg10.meitudata.com/5965e0e10400e8614.jpg!thumb480</item>
+        <item>http://mvimg10.meitudata.com/597a126cae9cb386.jpg!thumb480</item>
+        <item>http://mvimg11.meitudata.com/597ad557a16601141.jpg!thumb480</item>
+        <item>http://mvimg10.meitudata.com/5978af54236e68905.jpg!thumb480</item>
+        <item>http://mvimg10.meitudata.com/597807e0724bd4914.jpg!thumb480</item>
+        <item>http://mvimg11.meitudata.com/5968551d61a075766.jpg!thumb480</item>
+        <item>http://mvimg11.meitudata.com/59772a3cb85d38317.jpg!thumb480</item>
+        <item>http://mvimg11.meitudata.com/57efb5ca5e1571943.jpg!thumb320</item>
+        <item>http://mvimg10.meitudata.com/5962190c1b4c52054.jpg!thumb480</item>
+        <item>http://mvimg11.meitudata.com/597d0b8f3d1f49398.jpg!thumb480</item>
+        <item>http://mvimg11.meitudata.com/596c5b1183e954804.jpg!thumb480</item>
+        <item>http://mvimg10.meitudata.com/595a1b3b5019c5681.jpg!thumb480</item>
+        <item>http://mvimg10.meitudata.com/5978d4dfa526f7889.jpg!thumb320</item>
+        <item>http://mvimg10.meitudata.com/59781459d2e198555.jpg!thumb480</item>
+        <item>http://mvimg10.meitudata.com/5978728a296739014.jpg!thumb320</item>
+        <item>http://mvimg10.meitudata.com/59709d28c538a7566.png!thumb480</item>
+        <item>http://mvimg11.meitudata.com/59707238a4a4e9325.jpg!thumb320</item>
+        <item>http://mvimg10.meitudata.com/595cc82d7ab919018.jpg!thumb480</item>
+        <item>http://mvimg11.meitudata.com/596c9d69b72751349.jpg!thumb480</item>
+        <item>http://mvimg11.meitudata.com/595f118c6d15e2668.jpg!thumb480</item>
+        <item>http://mvimg10.meitudata.com/59743c56c12897743.jpg!thumb480</item>
+    </string-array>
+
+    <string-array name="hot_topic_play_count">
+        <item>998.2</item>
+        <item>2922.8</item>
+        <item>3097.3</item>
+        <item>276.6</item>
+        <item>512.5</item>
+        <item>64.4</item>
+        <item>1491.3</item>
+        <item>87.8</item>
+        <item>1175.4</item>
+        <item>1660.2</item>
+        <item>1400.3</item>
+        <item>1834.9</item>
+        <item>482.7</item>
+        <item>1215.2</item>
+        <item>2524.5</item>
+        <item>1678.0</item>
+        <item>9011.5</item>
+        <item>515.1</item>
+        <item>1534.8</item>
+        <item>1975.2</item>
+        <item>2376.0</item>
+    </string-array>
+
+</resources>

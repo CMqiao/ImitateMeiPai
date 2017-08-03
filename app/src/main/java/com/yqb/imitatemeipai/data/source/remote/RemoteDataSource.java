@@ -24,9 +24,9 @@ import okhttp3.Response;
  * Created by QJZ on 2017/7/31.
  */
 
-public class RemoteDataSource implements IDataSource{
+public class RemoteDataSource implements IDataSource {
     private OkHttpClient client;
-    private StringBuffer urlString;
+    private String urlString;
     private Handler handler;
     private Context context;
 
@@ -38,28 +38,18 @@ public class RemoteDataSource implements IDataSource{
 
     public RemoteDataSource(String urlPath, Context context) {
         this(context);
-        urlString = new StringBuffer(HttpURLUtil.getURL(urlPath, HttpURLUtil.TYPE_DOMAIN));
+        urlString = HttpURLUtil.getURL(urlPath, HttpURLUtil.TYPE_DOMAIN);
         this.context = context;
     }
 
     @Override
     public void getJsonData(Map<String, String> params, final Class resultDataClass, final FetchDataCallback callback) {
-        urlString.append("?");
-        if (null != params && params.size() != 0) {
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                try {
-                    urlString.append(entry.getKey()).append("=").append(URLEncoder.encode(entry.getValue(), "utf-8"));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                urlString.append("&");
-            }
-            urlString.deleteCharAt(urlString.length() - 1);
-        }
+        StringBuffer urlStringTemp = new StringBuffer(urlString);
+        urlStringTemp.append(generateMosaicParams(params));
 
-        Log.d("urlString", urlString.toString());
+        Log.d("urlString", urlStringTemp.toString());
 
-        final Request request = new Request.Builder().url(urlString.toString()).get().build();
+        final Request request = new Request.Builder().url(urlStringTemp.toString()).get().build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -87,6 +77,22 @@ public class RemoteDataSource implements IDataSource{
 
     @Override
     public void changeURLPath(String urlPath) {
-        urlString=new StringBuffer(HttpURLUtil.getURL(urlPath, HttpURLUtil.TYPE_IP));
+        urlString = HttpURLUtil.getURL(urlPath, HttpURLUtil.TYPE_IP);
+    }
+
+    public String generateMosaicParams(Map<String, String> params) {
+        StringBuffer paramsString = new StringBuffer("?");
+        if (null != params && params.size() != 0) {
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                try {
+                    paramsString.append(entry.getKey()).append("=").append(URLEncoder.encode(entry.getValue(), "utf-8"));
+                } catch (UnsupportedEncodingException e){
+                    e.printStackTrace();
+                }
+                paramsString.append("&");
+            }
+            paramsString.deleteCharAt(paramsString.length() - 1);
+        }
+        return paramsString.toString();
     }
 }

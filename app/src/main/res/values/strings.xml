@@ -4,7 +4,8 @@
     <string name="app_start_welcome_slogan">美图出品</string>
 
     <string name="nick_name">昵称</string>
-
+    <string name="title_back">返回</string>
+    <string name="title">标题</string>
     <string name="error_net_work_disconnect">无法连接服务器，请检查网络</string>
 
     <!--美拍·-->
@@ -15,5 +16,6 @@
 
     <!--频道·-->
     <string name="title_channel">频道</string>
+    <string name="title_hot_topic">热门话题</string>
 
 </resources>
