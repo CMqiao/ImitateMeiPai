@@ -8,6 +8,7 @@ import com.yqb.imitatemeipai.base.BaseFragment;
  */
 
 public class SameCityFragment extends BaseFragment {
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_same_city;
@@ -22,4 +23,5 @@ public class SameCityFragment extends BaseFragment {
     protected void init() {
 
     }
+
 }

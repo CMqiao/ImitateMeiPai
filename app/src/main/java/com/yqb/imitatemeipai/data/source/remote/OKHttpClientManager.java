@@ -9,20 +9,21 @@ import okhttp3.OkHttpClient;
 public class OkHttpClientManager {
 
     public static OkHttpClientManager instance;
+
     private OkHttpClient client;
 
-    private OkHttpClientManager(){
+    private OkHttpClientManager() {
         client = new OkHttpClient();
     }
 
-    synchronized public static OkHttpClientManager getInstance(){
-        if(instance == null){
+    synchronized public static OkHttpClientManager getInstance() {
+        if (null == instance) {
             instance = new OkHttpClientManager();
         }
         return instance;
     }
 
-    public OkHttpClient getClient(){
+    public OkHttpClient getClient() {
         return client;
     }
 

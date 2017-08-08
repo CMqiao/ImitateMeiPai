@@ -27,25 +27,24 @@
         </activity>
         <!-- End of 欢迎页 -->
 
-
         <!-- 主界面 -->
         <activity
             android:name=".app.main.MainActivity"
             android:theme="@style/Theme.AppMain" />
         <!-- End of 主界面 -->
 
-
-        <!-- 主界面 -->
-
-
-        <!-- End of 主界面 -->
-
+        <!--视频-->
         <activity
             android:name=".app.main.beautyshot.detail.VideoPlayActivity"
             android:theme="@style/Theme.AppVideoDetail" />
+        <!--End of 视频-->
+
+        <!--频道-->
         <activity
             android:name=".app.main.channel.ChannelVideoListActivity"
             android:theme="@style/Theme.AppVideoDetail"/>
+        <!--End of 频道-->
+
     </application>
 
 </manifest>

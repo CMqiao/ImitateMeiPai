@@ -1,16 +1,14 @@
 package com.yqb.imitatemeipai.app.main.beautyshot;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.View;
-import android.widget.ImageView;
-
+import com.yqb.imitatemeipai.adapter.APlayVideoAdapter;
 import com.yqb.imitatemeipai.R;
 import com.yqb.imitatemeipai.base.BaseFragment;
+import com.yqb.imitatemeipai.entity.common.PlayVideo;
+import com.yqb.imitatemeipai.widget.VideoSwitchPager;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by QJZ on 2017/7/30.
@@ -18,10 +16,10 @@ import java.io.IOException;
 
 public class APlayFragment extends BaseFragment {
 
-    private SurfaceView videoPlayView;
-    private ImageView playImage;
-    private MediaPlayer player;
-    private SurfaceHolder holder;
+    private VideoSwitchPager videoSwitchPager;
+    private APlayVideoAdapter adapter;
+    private List<PlayVideo> videoList;
+
 
     @Override
     protected int getLayoutResource() {
@@ -30,64 +28,27 @@ public class APlayFragment extends BaseFragment {
 
     @Override
     protected void findViews() {
-        videoPlayView = (SurfaceView) rootView.findViewById(R.id.sv_video_play);
-        playImage = (ImageView) rootView.findViewById(R.id.iv_video_play);
+        videoSwitchPager = (VideoSwitchPager) rootView.findViewById(R.id.vsp_video_play_list);
     }
 
     @Override
     protected void init() {
-        player = new MediaPlayer();
-        try {
-            player.setDataSource(context, Uri.parse("http://mvvideo10.meitudata.com/597cc111dea917818_H264_7.mp4"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        videoList = new ArrayList<>();
 
-        holder=videoPlayView.getHolder();
-        holder.addCallback(new MyCallBack());
+        PlayVideo playVideo = new PlayVideo();
+        playVideo.setUrl("http://mvvideo11.meitudata.com/5987ea2345b505964_H264_7.mp4");
+        PlayVideo playVideo1 = new PlayVideo();
+        playVideo1.setUrl("http://mvvideo11.meitudata.com/59884e4268d884798_H264_7.mp4");
+        PlayVideo playVideo2 = new PlayVideo();
+        playVideo2.setUrl("http://mvvideo11.meitudata.com/5987f0103faf04065_H264_7.mp4");
+        videoList.add(playVideo);
+        videoList.add(playVideo1);
+        videoList.add(playVideo2);
 
-        try {
-            player.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        adapter = new APlayVideoAdapter(context, videoList);
 
-        videoPlayView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (player.isPlaying()){
-                    player.pause();
-                    playImage.setVisibility(View.VISIBLE);
-                }else{
-                    player.start();
-                    playImage.setVisibility(View.GONE);
-                }
-            }
-        });
+        videoSwitchPager.setAdapter(adapter);
 
     }
 
-    class MyCallBack implements SurfaceHolder.Callback{
-
-         @Override
-         public void surfaceCreated(SurfaceHolder holder) {
-            player.setDisplay(holder);
-         }
-
-         @Override
-         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-         }
-
-         @Override
-         public void surfaceDestroyed(SurfaceHolder holder) {
-            player.pause();
-         }
-     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        player.pause();
-    }
 }

@@ -21,5 +21,6 @@
 
     <color name="colorBgBottomTab">#44333333</color>
     <color name="colorBgTopTab">#00000000</color>
+    <color name="colorLightGreen">#02B38A</color>
 
 </resources>

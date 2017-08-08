@@ -7,6 +7,7 @@
     <string name="title_back">返回</string>
     <string name="title">标题</string>
     <string name="error_net_work_disconnect">无法连接服务器，请检查网络</string>
+    <string name="focus">关注</string>
 
     <!--美拍·-->
     <string name="title_beatuty_shot">美拍</string>
