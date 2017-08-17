@@ -6,10 +6,15 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.yqb.imitatemeipai.data.source.IDataSource;
+import com.yqb.imitatemeipai.util.CloseUtil;
+import com.yqb.imitatemeipai.util.FileUtil;
 import com.yqb.imitatemeipai.util.HttpURLUtil;
 import com.yqb.imitatemeipai.util.JsonParserUtil;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -42,6 +47,11 @@ public class RemoteDataSource implements IDataSource {
         this.context = context;
     }
 
+    /**
+     * @param params
+     * @param resultDataClass
+     * @param callback
+     */
     @Override
     public void getJsonData(Map<String, String> params, final Class resultDataClass, final FetchDataCallback callback) {
         StringBuffer urlStringTemp = new StringBuffer(urlString);
@@ -75,6 +85,49 @@ public class RemoteDataSource implements IDataSource {
 
     }
 
+    /**
+     * @param url      下载连接
+     * @param saveDir  储存下载文件的SDCard目录
+     * @param listener 下载监听
+     */
+    public void download(final String url, final String saveDir, final OnDownloadListener listener) {
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onDownloadFailed();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                int len = 0;
+                byte[] buf = new byte[2048];
+                InputStream is = null;
+                FileOutputStream fos = null;
+                String savePath = FileUtil.isExistDir(saveDir);
+                try {
+                    is = response.body().byteStream();
+                    long total = response.body().contentLength();
+                    File file = new File(savePath, FileUtil.getNameFromUrl(url));
+                    fos = new FileOutputStream(file);
+                    long sum = 0;
+                    while ((len = is.read(buf)) != -1) {
+                        fos.write(buf, 0, len);
+                        sum += len;
+                        int progress = (int) (sum * 1.0f / total * 100);
+                        listener.onChangeProgress(progress);
+                    }
+                    fos.flush();
+                    listener.onDownloadSuccess();
+                } catch (Exception e) {
+                    listener.onDownloadFailed();
+                } finally {
+                    CloseUtil.close(is);
+                    CloseUtil.close(fos);
+                }
+            }
+        });
+    }
+
     @Override
     public void changeURLPath(String urlPath) {
         urlString = HttpURLUtil.getURL(urlPath, HttpURLUtil.TYPE_IP);
@@ -86,7 +139,7 @@ public class RemoteDataSource implements IDataSource {
             for (Map.Entry<String, String> entry : params.entrySet()) {
                 try {
                     paramsString.append(entry.getKey()).append("=").append(URLEncoder.encode(entry.getValue(), "utf-8"));
-                } catch (UnsupportedEncodingException e){
+                } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
                 paramsString.append("&");
@@ -95,4 +148,11 @@ public class RemoteDataSource implements IDataSource {
         }
         return paramsString.toString();
     }
+
+    interface OnDownloadListener{
+        void onDownloadSuccess();
+        void onChangeProgress(int progress);
+        void onDownloadFailed();
+    }
+
 }

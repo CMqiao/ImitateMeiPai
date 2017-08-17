@@ -19,6 +19,8 @@ import com.yqb.imitatemeipai.presenter.HotDetailPresenter;
 import com.yqb.imitatemeipai.util.ToastUtil;
 import com.yqb.imitatemeipai.view.HotDetailView;
 
+import java.util.HashMap;
+
 public class VideoPlayActivity extends BaseActivity implements HotDetailView, View.OnKeyListener, View.OnClickListener{
 
     private WebView webView;
@@ -64,11 +66,11 @@ public class VideoPlayActivity extends BaseActivity implements HotDetailView, Vi
     }
 
     private void initWebView(){
-        final WebSettings webSettings = webView.getSettings();
+/*        final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setDomStorageEnabled(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setAppCacheEnabled(true);
@@ -76,7 +78,15 @@ public class VideoPlayActivity extends BaseActivity implements HotDetailView, Vi
         webSettings.setSupportZoom(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-        webSettings.setUseWideViewPort(true);
+        webSettings.setUseWideViewPort(true);*/
+
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setDatabaseEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setDefaultTextEncodingName("UTF-8");
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         webView.setWebChromeClient(new WebChromeClient(){
             @Override
@@ -114,7 +124,9 @@ public class VideoPlayActivity extends BaseActivity implements HotDetailView, Vi
 
     @Override
     public void onWebViewLoadUrl(String url) {
-        webView.loadUrl(url);
+        HashMap<String, String> headerMap = new HashMap<>();
+        headerMap.put("Cache-Control", "public, max-age=" + 0);
+        webView.loadUrl(url,headerMap);
     }
 
     @Override

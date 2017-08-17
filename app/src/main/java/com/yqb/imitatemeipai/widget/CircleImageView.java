@@ -1,7 +1,7 @@
 package com.yqb.imitatemeipai.widget;
 
 /**
- * Created by QJZ on 2017/5/27.
+ * Created by QJZ on 2017/8/2.
  */
 
 import android.annotation.SuppressLint;
@@ -173,32 +173,16 @@ public class CircleImageView extends ImageView {
         invalidate();
     }
 
-    /**
-     * @deprecated Use {@link #setBorderColor(int)} instead
-     */
     @Deprecated
     public void setBorderColorResource(@ColorRes int borderColorRes) {
         setBorderColor(getContext().getResources().getColor(borderColorRes));
     }
 
-    /**
-     * Return the color drawn behind the circle-shaped drawable.
-     *
-     * @return The color drawn behind the drawable
-     * @deprecated Fill color support is going to be removed in the future
-     */
     @Deprecated
     public int getFillColor() {
         return mFillColor;
     }
 
-    /**
-     * Set a color to be drawn behind the circle-shaped drawable. Note that
-     * this has no effect if the drawable is opaque or no drawable is set.
-     *
-     * @param fillColor The color to be drawn behind the drawable
-     * @deprecated Fill color support is going to be removed in the future
-     */
     @Deprecated
     public void setFillColor(@ColorInt int fillColor) {
         if (fillColor == mFillColor) {
@@ -210,14 +194,7 @@ public class CircleImageView extends ImageView {
         invalidate();
     }
 
-    /**
-     * Set a color to be drawn behind the circle-shaped drawable. Note that
-     * this has no effect if the drawable is opaque or no drawable is set.
-     *
-     * @param fillColorRes The color resource to be resolved to a color and
-     *                     drawn behind the drawable
-     * @deprecated Fill color support is going to be removed in the future
-     */
+
     @Deprecated
     public void setFillColorResource(@ColorRes int fillColorRes) {
         setFillColor(getContext().getResources().getColor(fillColorRes));
