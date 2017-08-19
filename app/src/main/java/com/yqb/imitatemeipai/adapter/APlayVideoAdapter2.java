@@ -1,6 +1,8 @@
 package com.yqb.imitatemeipai.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
@@ -86,7 +88,7 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
     }
 
     public static class APlayViewHolder extends RecyclerView.ViewHolder implements MediaPlayer.OnCompletionListener, View.OnClickListener,
-            SurfaceHolder.Callback{
+            SurfaceHolder.Callback {
 
         private static final String SAVE_DIR = "/meipai";
 
@@ -103,6 +105,7 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
 
         private PlayVideo playVideo;
         private MediaPlayer mediaPlayer = new MediaPlayer();
+        private MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
 
         private APlayViewHolder(View rootView) {
             super(rootView);
@@ -126,26 +129,27 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
         }
 
         public void bind(final PlayVideo playVideo) {
+            this.playVideo = playVideo;
 
 //            设置第一帧图片, 网络过差时会导致黑屏
 //            MediaMetadataRetriever mmr=new MediaMetadataRetriever();
 //            String path= playVideo.getUrl();
 //            mmr.setDataSource(path, new HashMap());
 //            Bitmap bitmap=mmr.getFrameAtTime();
-//            surfaceView.setBackgroundDrawable(new BitmapDrawable(bitmap));
-
-            this.playVideo = playVideo;
+//            cover.setImageBitmap(bitmap);
 
             cover.setImageResource(playVideo.getCover());
-            Glide.with(context).load(playVideo.getAvatar()).into(avatar);
             nickName.setText(playVideo.getNickName());
+            Glide.with(context).load(playVideo.getAvatar()).into(avatar);
 
             surfaceView.getHolder().addCallback(this);
+
             download.setOnClickListener(this);
-            if(DownloadUtil.hasDownloaded(playVideo.getUrl(), SAVE_DIR)){
+
+            if (DownloadUtil.hasDownloaded(playVideo.getUrl(), SAVE_DIR)) {
                 download.setVisibility(View.INVISIBLE);
                 setVideoData(DownloadUtil.getDownloadedFilePath(SAVE_DIR, playVideo.getUrl()));
-            }else{
+            } else {
                 download.setVisibility(View.VISIBLE);
             }
         }
@@ -153,6 +157,7 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
         public void setVideoData(String path) {
             playView.setVisibility(View.VISIBLE);
             try {
+                mediaMetadataRetriever.setDataSource(path);
                 mediaPlayer.setDataSource(context, Uri.parse(path));
                 mediaPlayer.prepare();
             } catch (IOException e) {
@@ -164,7 +169,7 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.iv_video_play:
                     if (mediaPlayer.isPlaying()) {
                         mediaPlayer.pause();
@@ -185,17 +190,19 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
                 case R.id.iv_video_download:
                     download.setVisibility(View.INVISIBLE);
                     downloadBar.setVisibility(View.VISIBLE);
-                    if(playVideo != null){
+                    if (playVideo != null) {
                         DownloadUtil.download(context, playVideo.getUrl(), SAVE_DIR, new IDataSource.OnDownloadListener() {
                             @Override
                             public void onDownloadSuccess(String path) {
                                 downloadBar.setVisibility(View.INVISIBLE);
                                 setVideoData(path);
                             }
+
                             @Override
                             public void onChangeProgress(int progress) {
                                 downloadBar.onChangeProgress(progress);
                             }
+
                             @Override
                             public void onDownloadFailed() {
                                 ToastUtil.toast(context, "下载失败");
@@ -219,13 +226,21 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
 
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
         }
 
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
-            mediaPlayer.pause();
-            mediaPlayer.release();
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+            }
+
+            playView.setImageResource(R.mipmap.ic_video_pause);
+
+            if (DownloadUtil.hasDownloaded(playVideo.getUrl(), SAVE_DIR)) {
+                Bitmap bmFrame = mediaMetadataRetriever.getFrameAtTime(mediaPlayer.getCurrentPosition() * 1000);
+                cover.setImageBitmap(bmFrame);
+            }
+            cover.setVisibility(View.VISIBLE);
         }
 
     }
