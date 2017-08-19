@@ -1,4 +1,4 @@
-package com.yqb.imitatemeipai.widget;
+package com.yqb.imitatemeipai.util;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -1,6 +1,6 @@
 <resources>
     <!--common-->
-    <string name="app_name">仿美图</string>
+    <string name="app_name">仿美拍</string>
     <string name="app_start_welcome_slogan">美图出品</string>
 
     <string name="nick_name">昵称</string>

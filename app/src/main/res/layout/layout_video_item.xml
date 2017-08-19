@@ -10,14 +10,10 @@
         android:layout_height="match_parent" />
 
     <ImageView
-        android:id="@+id/iv_video_play"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp"
-        android:layout_marginRight="20dp"
-        android:src="@mipmap/ic_video_pause" />
+        android:id="@+id/iv_bg_cover"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:layout_width="150dp"
@@ -28,6 +24,7 @@
         android:background="@drawable/bg_a_play_video_personal_info">
 
         <com.yqb.imitatemeipai.widget.CircleImageView
+            android:id="@+id/iv_a_play_avatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="4dp"
@@ -41,6 +38,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_a_play_nick_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nick_name"
@@ -59,5 +57,32 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_video_download"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/ic_video_download"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <com.yqb.imitatemeipai.widget.DownloadBar
+        android:id="@+id/db_video_download_progress"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/iv_video_play"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="20dp"
+        android:visibility="invisible"
+        android:src="@mipmap/ic_video_pause" />
 
 </RelativeLayout>

@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewTreeObserver;
 
+import com.yqb.imitatemeipai.util.VideoPagerUtils;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;

@@ -95,7 +95,12 @@ public class RemoteDataSource implements IDataSource {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                listener.onDownloadFailed();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onDownloadFailed();
+                    }
+                });
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -107,19 +112,34 @@ public class RemoteDataSource implements IDataSource {
                 try {
                     is = response.body().byteStream();
                     long total = response.body().contentLength();
-                    File file = new File(savePath, FileUtil.getNameFromUrl(url));
+                    final File file = new File(savePath, FileUtil.getNameFromUrl(url));
                     fos = new FileOutputStream(file);
                     long sum = 0;
                     while ((len = is.read(buf)) != -1) {
                         fos.write(buf, 0, len);
                         sum += len;
-                        int progress = (int) (sum * 1.0f / total * 100);
-                        listener.onChangeProgress(progress);
+                        final int progress = (int) (sum * 1.0f / total * 100);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                listener.onChangeProgress(progress);
+                            }
+                        });
                     }
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onDownloadSuccess(file.getAbsolutePath());
+                        }
+                    });
                     fos.flush();
-                    listener.onDownloadSuccess();
                 } catch (Exception e) {
-                    listener.onDownloadFailed();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onDownloadFailed();
+                        }
+                    });
                 } finally {
                     CloseUtil.close(is);
                     CloseUtil.close(fos);
@@ -147,12 +167,6 @@ public class RemoteDataSource implements IDataSource {
             paramsString.deleteCharAt(paramsString.length() - 1);
         }
         return paramsString.toString();
-    }
-
-    interface OnDownloadListener{
-        void onDownloadSuccess();
-        void onChangeProgress(int progress);
-        void onDownloadFailed();
     }
 
 }

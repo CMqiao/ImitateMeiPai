@@ -24,7 +24,7 @@ public class ChannelFragment extends BaseFragment {
     private ChannelVideoCategoryAdapter categoryAdapter;
     private ChannelHotTopicAdapter hotTopicAdapter;
 
-    public static ChannelFragment newInstance(){
+    public static ChannelFragment newInstance() {
         ChannelFragment fragment = new ChannelFragment();
         return fragment;
     }
@@ -38,8 +38,6 @@ public class ChannelFragment extends BaseFragment {
     protected void findViews() {
         videoCategoryList = (RecyclerView) rootView.findViewById(R.id.rv_video_category_list);
         hotTopicList = (RecyclerView) rootView.findViewById(R.id.rv_hot_topic_list);
-
-
     }
 
     @Override
@@ -47,11 +45,11 @@ public class ChannelFragment extends BaseFragment {
 
 
         HotVideo[] hotVideos = new HotVideo[10];
-        for(int i=0; i<hotVideos.length; i++){
+        for (int i = 0; i < hotVideos.length; i++) {
             hotVideos[i] = new HotVideo();
         }
 
-        categoryAdapter =  new ChannelVideoCategoryAdapter(context);
+        categoryAdapter = new ChannelVideoCategoryAdapter(context);
         videoCategoryList.setLayoutManager(new GridLayoutManager(context, 4));
         videoCategoryList.setNestedScrollingEnabled(false);
         videoCategoryList.setAdapter(categoryAdapter);
@@ -66,7 +64,6 @@ public class ChannelFragment extends BaseFragment {
         hotTopicAdapter.notifyDataSetChanged();
 
     }
-
 
 
 }

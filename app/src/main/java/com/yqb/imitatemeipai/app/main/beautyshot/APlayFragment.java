@@ -1,35 +1,32 @@
 package com.yqb.imitatemeipai.app.main.beautyshot;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.View;
+import android.util.Log;
 
 import com.yqb.imitatemeipai.adapter.APlayVideoAdapter;
 import com.yqb.imitatemeipai.R;
 import com.yqb.imitatemeipai.adapter.APlayVideoAdapter2;
 import com.yqb.imitatemeipai.base.BaseFragment;
 import com.yqb.imitatemeipai.entity.common.PlayVideo;
+import com.yqb.imitatemeipai.presenter.APlayPresenter;
+import com.yqb.imitatemeipai.util.ToastUtil;
+import com.yqb.imitatemeipai.view.APlayView;
 import com.yqb.imitatemeipai.widget.VideoSwitchPager2;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Arrays;
 
 /**
  * Created by QJZ on 2017/7/30.
  */
 
-public class APlayFragment extends BaseFragment {
+public class APlayFragment extends BaseFragment implements APlayView{
+
+    private APlayVideoAdapter adapter;
 
     private VideoSwitchPager2 videoSwitchPager;
-    private APlayVideoAdapter adapter;
-    private List<PlayVideo> videoList;
     private APlayVideoAdapter2 aPlayVideoAdapter2;
+
+    private APlayPresenter presenter;
 
     @Override
     protected int getLayoutResource() {
@@ -44,17 +41,6 @@ public class APlayFragment extends BaseFragment {
 
     @Override
     protected void init() {
-        videoList = new ArrayList<>();
-
-        final PlayVideo playVideo = new PlayVideo();
-        playVideo.setUrl("http://mvvideo11.meitudata.com/5987ea2345b505964_H264_7.mp4");
-        PlayVideo playVideo1 = new PlayVideo();
-        playVideo1.setUrl("http://mvvideo11.meitudata.com/59884e4268d884798_H264_7.mp4");
-        PlayVideo playVideo2 = new PlayVideo();
-        playVideo2.setUrl("http://mvvideo11.meitudata.com/5987f0103faf04065_H264_7.mp4");
-        videoList.add(playVideo);
-        videoList.add(playVideo1);
-        videoList.add(playVideo2);
 
    /*     adapter = new APlayVideoAdapter(context, videoList);
         videoSwitchPager.setAdapter(adapter);*/
@@ -62,17 +48,32 @@ public class APlayFragment extends BaseFragment {
         aPlayVideoAdapter2 = new APlayVideoAdapter2(context);
 
         videoSwitchPager.setTriggerOffset(0.15f);
-        videoSwitchPager.setSinglePageFling(true);
-        videoSwitchPager.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        videoSwitchPager.setHasFixedSize(true);
         videoSwitchPager.setLongClickable(true);
-
+        videoSwitchPager.setSinglePageFling(true);
+        videoSwitchPager.setHasFixedSize(true);
+        videoSwitchPager.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         videoSwitchPager.setAdapter(aPlayVideoAdapter2);
 
-        aPlayVideoAdapter2.appendListData(videoList);
-        aPlayVideoAdapter2.notifyDataSetChanged();
+        presenter = new APlayPresenter(context);
+        presenter.bindIView(this);
 
+        onLoadVideoData();
     }
 
+    @Override
+    public void onLoadVideoData() {
+        presenter.loadPlayVideoData();
+    }
 
+    @Override
+    public void onShowVideoData(PlayVideo[] playVideos) {
+        Log.d("APlay", Arrays.toString(playVideos));
+        aPlayVideoAdapter2.appendArrayData(playVideos);
+        aPlayVideoAdapter2.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getConnectFailed() {
+        ToastUtil.toast(context, context.getString(R.string.error_net_work_disconnect));
+    }
 }

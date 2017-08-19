@@ -12,7 +12,6 @@ import java.io.IOException;
 public class FileUtil {
 
     public static String isExistDir(String saveDir) throws IOException {
-
         File downloadFile = new File(Environment.getExternalStorageDirectory(), saveDir);
         if (!downloadFile.mkdirs()) {
             downloadFile.createNewFile();
@@ -23,6 +22,15 @@ public class FileUtil {
 
     public static String getNameFromUrl(String url) {
         return url.substring(url.lastIndexOf("/") + 1);
+    }
+
+    public static boolean isFileExist(String url, String saveDir){
+        File downloadFile = new File(Environment.getExternalStorageDirectory()+saveDir, getNameFromUrl(url));
+        return downloadFile.exists();
+    }
+
+    public static String getDownloadedFilePath(String saveDir, String url){
+        return Environment.getExternalStorageDirectory()+saveDir+"/"+getNameFromUrl(url);
     }
 
 }

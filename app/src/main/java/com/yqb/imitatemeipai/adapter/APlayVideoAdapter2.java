@@ -1,12 +1,9 @@
 package com.yqb.imitatemeipai.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -18,15 +15,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yqb.imitatemeipai.R;
-import com.yqb.imitatemeipai.app.main.beautyshot.detail.VideoPlayActivity;
+import com.yqb.imitatemeipai.data.source.IDataSource;
 import com.yqb.imitatemeipai.entity.common.PlayVideo;
-import com.yqb.imitatemeipai.entity.response.HotVideo;
+import com.yqb.imitatemeipai.util.DownloadUtil;
+import com.yqb.imitatemeipai.util.ToastUtil;
 import com.yqb.imitatemeipai.widget.CircleImageView;
+import com.yqb.imitatemeipai.widget.DownloadBar;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -69,7 +67,7 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
         appendListData(dataList);
     }
 
-    public void resetDataArray(PlayVideo[] dataArray){
+    public void resetDataArray(PlayVideo[] dataArray) {
         this.dataList.clear();
         appendArrayData(dataArray);
     }
@@ -87,16 +85,24 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
         }
     }
 
-    public static class APlayViewHolder extends RecyclerView.ViewHolder {
+    public static class APlayViewHolder extends RecyclerView.ViewHolder implements MediaPlayer.OnCompletionListener, View.OnClickListener,
+            SurfaceHolder.Callback{
+
+        private static final String SAVE_DIR = "/meipai";
 
         private Context context;
         private View rootView;
 
-        private ImageView play;
-
-        private MediaPlayer player = new MediaPlayer();
-
+        private CircleImageView avatar;
+        private TextView nickName;
+        private ImageView cover;
+        private ImageView playView;
         private SurfaceView surfaceView;
+        private ImageView download;
+        private DownloadBar downloadBar;
+
+        private PlayVideo playVideo;
+        private MediaPlayer mediaPlayer = new MediaPlayer();
 
         private APlayViewHolder(View rootView) {
             super(rootView);
@@ -110,58 +116,116 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
         }
 
         public void findViews() {
-            play = (ImageView) rootView.findViewById(R.id.iv_video_play);
+            cover = (ImageView) rootView.findViewById(R.id.iv_bg_cover);
+            playView = (ImageView) rootView.findViewById(R.id.iv_video_play);
             surfaceView = (SurfaceView) rootView.findViewById(R.id.sv_video_play);
+            avatar = (CircleImageView) rootView.findViewById(R.id.iv_a_play_avatar);
+            nickName = (TextView) rootView.findViewById(R.id.tv_a_play_nick_name);
+            download = (ImageView) rootView.findViewById(R.id.iv_video_download);
+            downloadBar = (DownloadBar) rootView.findViewById(R.id.db_video_download_progress);
         }
 
         public void bind(final PlayVideo playVideo) {
 
-            //设置第一帧图片
-/*            MediaMetadataRetriever mmr=new MediaMetadataRetriever();
-            String path= playVideo.getUrl();
-            mmr.setDataSource(path, new HashMap());
-            Bitmap bitmap=mmr.getFrameAtTime();
-            surfaceView.setBackgroundDrawable(new BitmapDrawable(bitmap));*/
+//            设置第一帧图片, 网络过差时会导致黑屏
+//            MediaMetadataRetriever mmr=new MediaMetadataRetriever();
+//            String path= playVideo.getUrl();
+//            mmr.setDataSource(path, new HashMap());
+//            Bitmap bitmap=mmr.getFrameAtTime();
+//            surfaceView.setBackgroundDrawable(new BitmapDrawable(bitmap));
 
-            player.reset();
-            SurfaceHolder holder = surfaceView.getHolder();
-            holder.addCallback(new SurfaceHolder.Callback() {
-                @Override
-                public void surfaceCreated(SurfaceHolder holder) {
-                    player.setDisplay(holder);
-                }
-                @Override
-                public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                }
-                @Override
-                public void surfaceDestroyed(SurfaceHolder holder) {
-                    player.pause();
-                    player.release();
-                }
-            });
+            this.playVideo = playVideo;
+
+            cover.setImageResource(playVideo.getCover());
+            Glide.with(context).load(playVideo.getAvatar()).into(avatar);
+            nickName.setText(playVideo.getNickName());
+
+            surfaceView.getHolder().addCallback(this);
+            download.setOnClickListener(this);
+            if(DownloadUtil.hasDownloaded(playVideo.getUrl(), SAVE_DIR)){
+                download.setVisibility(View.INVISIBLE);
+                setVideoData(DownloadUtil.getDownloadedFilePath(SAVE_DIR, playVideo.getUrl()));
+            }else{
+                download.setVisibility(View.VISIBLE);
+            }
+        }
+
+        public void setVideoData(String path) {
+            playView.setVisibility(View.VISIBLE);
             try {
-                player.setDataSource(context, Uri.parse(playVideo.getUrl()));
+                mediaPlayer.setDataSource(context, Uri.parse(path));
+                mediaPlayer.prepare();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            try {
-                player.prepare();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            play.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(player.isPlaying()){
-                        play.setImageResource(R.mipmap.ic_video_pause);
-                        player.pause();
-                    }else{
-                        play.setImageResource(R.mipmap.ic_video_play);
-                        player.start();
+            playView.setOnClickListener(this);
+            mediaPlayer.setOnCompletionListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.iv_video_play:
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.pause();
+                        playView.setImageResource(R.mipmap.ic_video_pause);
+                    } else {
+                        if (cover.getVisibility() == View.VISIBLE) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    cover.setVisibility(View.INVISIBLE);
+                                }
+                            }, 300);
+                        }
+                        mediaPlayer.start();
+                        playView.setImageResource(R.mipmap.ic_video_play);
                     }
-                }
-            });
+                    break;
+                case R.id.iv_video_download:
+                    download.setVisibility(View.INVISIBLE);
+                    downloadBar.setVisibility(View.VISIBLE);
+                    if(playVideo != null){
+                        DownloadUtil.download(context, playVideo.getUrl(), SAVE_DIR, new IDataSource.OnDownloadListener() {
+                            @Override
+                            public void onDownloadSuccess(String path) {
+                                downloadBar.setVisibility(View.INVISIBLE);
+                                setVideoData(path);
+                            }
+                            @Override
+                            public void onChangeProgress(int progress) {
+                                downloadBar.onChangeProgress(progress);
+                            }
+                            @Override
+                            public void onDownloadFailed() {
+                                ToastUtil.toast(context, "下载失败");
+                            }
+                        });
+                    }
+                default:
+                    break;
+            }
+        }
 
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            playView.setImageResource(R.mipmap.ic_video_pause);
+        }
+
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+            mediaPlayer.setDisplay(holder);
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+            mediaPlayer.pause();
+            mediaPlayer.release();
         }
 
     }

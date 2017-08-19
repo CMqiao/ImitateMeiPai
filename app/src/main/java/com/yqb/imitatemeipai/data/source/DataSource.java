@@ -17,8 +17,8 @@ public class DataSource implements IDataSource {
     private LocalDataSource localDataSource;
     private RemoteDataSource remoteDataSource;
 
-    private  DataSource(){
-
+    public  DataSource(Context context){
+        remoteDataSource = new RemoteDataSource(context);
     }
 
     public DataSource(String urlPath, Context context){
@@ -36,6 +36,11 @@ public class DataSource implements IDataSource {
         //localDataSource.getEntityData();
         //否者就去网络上请求数据
         remoteDataSource.changeURLPath(urlPath);
+    }
+
+    @Override
+    public void download(String url, String saveDir, OnDownloadListener listener) {
+        remoteDataSource.download(url, saveDir, listener);
     }
 
 }

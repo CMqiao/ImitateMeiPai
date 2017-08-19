@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="a_play_video_list">
-        <item>http://mvvideo10.meitudata.com/597cc111dea917818_H264_7.mp4</item>
+    <string-array name="a_play_video_list_urls">
+        <item>http://mvvideo11.meitudata.com/59901c76e28543114_H264_7.mp4</item>
+        <item>http://mvvideo10.meitudata.com/59952ffc9bf8b302_H264_7.mp4</item>
+        <item>http://mvvideo11.meitudata.com/599168acbcedc6158_H264_7.mp4</item>
+        <item>http://mvvideo11.meitudata.com/59917609d05795088_H264_7.mp4</item>
+        <item>http://mvvideo11.meitudata.com/5991724b649c68699_H264_7.mp4</item>
+        <item>http://mvvideo11.meitudata.com/59954445d885a2082_H264_7.mp4</item>
+        <item>http://mvvideo10.meitudata.com/599190a3cf1a61388_H264_7.mp4</item>
+    </string-array>
+
+    <string-array name="a_play_video_list_nick_names">
+        <item>机智你斌哥</item>
+        <item>梨花姥姥</item>
+        <item>IANXXI </item>
+        <item>壹贰叁宿舍</item>
+        <item>洛洛Luruo</item>
+        <item>Mc军刺有戏</item>
+        <item>Dj_kellybaby</item>
+    </string-array>
+
+    <string-array name="a_play_video_list_avatars">
+        <item>http://mvavatar1.meitudata.com/56c2ee34a9c801239.jpg!thumb90</item>
+        <item>http://mvavatar1.meitudata.com/59804283c7ac33169.jpg!thumb90</item>
+        <item>http://mvavatar2.meitudata.com/59687e2fdbd918974.jpg!thumb90</item>
+        <item>http://mvavatar2.meitudata.com/598d24b4a62cb6822.jpg!thumb90</item>
+        <item>http://mvavatar1.meitudata.com/5967853686aa83212.jpg!thumb90</item>
+        <item>http://mvavatar1.meitudata.com/59734407d294a132.jpg!thumb90</item>
+        <item>http://mvavatar1.meitudata.com/55e9ae7201ef64569.jpg!thumb90</item>
     </string-array>
 
     <string-array name="video_category_name">
