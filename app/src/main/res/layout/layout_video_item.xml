@@ -11,9 +11,9 @@
 
     <ImageView
         android:id="@+id/iv_bg_cover"
-        android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
 
     <LinearLayout
         android:layout_width="150dp"
@@ -62,27 +62,27 @@
         android:id="@+id/iv_video_download"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@mipmap/ic_video_download"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:src="@mipmap/ic_video_download" />
 
     <com.yqb.imitatemeipai.widget.DownloadBar
         android:id="@+id/db_video_download_progress"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/iv_video_play"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="80dp"
         android:layout_marginRight="20dp"
-        android:visibility="invisible"
-        android:src="@mipmap/ic_video_pause" />
+        android:src="@mipmap/ic_video_pause"
+        android:visibility="invisible" />
 
 </RelativeLayout>

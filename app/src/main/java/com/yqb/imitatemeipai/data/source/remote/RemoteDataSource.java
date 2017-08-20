@@ -102,6 +102,7 @@ public class RemoteDataSource implements IDataSource {
                     }
                 });
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 int len = 0;
@@ -148,11 +149,18 @@ public class RemoteDataSource implements IDataSource {
         });
     }
 
+    /**
+     * @param urlPath
+     */
     @Override
     public void changeURLPath(String urlPath) {
         urlString = HttpURLUtil.getURL(urlPath, HttpURLUtil.TYPE_IP);
     }
 
+    /**
+     * @param params
+     * @return
+     */
     public String generateMosaicParams(Map<String, String> params) {
         StringBuffer paramsString = new StringBuffer("?");
         if (null != params && params.size() != 0) {

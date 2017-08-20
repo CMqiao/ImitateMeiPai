@@ -47,7 +47,7 @@
         <item>吃秀</item>
     </string-array>
 
-    <integer-array  name="video_category_id">
+    <integer-array name="video_category_id">
         <item>13</item>
         <item>16</item>
         <item>31</item>

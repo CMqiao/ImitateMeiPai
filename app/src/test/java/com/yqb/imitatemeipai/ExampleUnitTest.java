@@ -34,14 +34,14 @@ public class ExampleUnitTest {
         videoList.add("http://mvvideo11.meitudata.com/59954445d885a2082_H264_7.mp4");
         videoList.add("http://mvvideo10.meitudata.com/599190a3cf1a61388_H264_7.mp4");
 
-        MediaMetadataRetriever mmr=new MediaMetadataRetriever();
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource("http://mvvideo11.meitudata.com/59901c76e28543114_H264_7.mp4", new HashMap());
-        Bitmap bitmap=mmr.getFrameAtTime();
+        Bitmap bitmap = mmr.getFrameAtTime();
         saveMyBitmap(bitmap, "01");
     }
 
-    public void saveMyBitmap(Bitmap mBitmap,String bitName)  {
-        File f = new File( "", bitName+".jpg");
+    public void saveMyBitmap(Bitmap mBitmap, String bitName) {
+        File f = new File("", bitName + ".jpg");
         System.out.print(f.getAbsolutePath());
         FileOutputStream fOut = null;
         try {
@@ -63,7 +63,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testFile(){
+    public void testFile() {
         try {
             File downloadFile = new File("D:/G/", "E");
             if (!downloadFile.mkdirs()) {

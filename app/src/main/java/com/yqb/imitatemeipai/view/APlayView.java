@@ -8,7 +8,9 @@ import com.yqb.imitatemeipai.entity.common.PlayVideo;
  */
 
 public interface APlayView extends IBaseView {
+
     void onLoadVideoData();
 
     void onShowVideoData(PlayVideo[] playVideos);
+
 }

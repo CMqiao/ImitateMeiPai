@@ -24,13 +24,13 @@ public class FileUtil {
         return url.substring(url.lastIndexOf("/") + 1);
     }
 
-    public static boolean isFileExist(String url, String saveDir){
-        File downloadFile = new File(Environment.getExternalStorageDirectory()+saveDir, getNameFromUrl(url));
+    public static boolean isFileExist(String url, String saveDir) {
+        File downloadFile = new File(Environment.getExternalStorageDirectory() + saveDir, getNameFromUrl(url));
         return downloadFile.exists();
     }
 
-    public static String getDownloadedFilePath(String saveDir, String url){
-        return Environment.getExternalStorageDirectory()+saveDir+"/"+getNameFromUrl(url);
+    public static String getDownloadedFilePath(String saveDir, String url) {
+        return Environment.getExternalStorageDirectory() + saveDir + "/" + getNameFromUrl(url);
     }
 
 }

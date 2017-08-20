@@ -31,14 +31,14 @@ public class HotPresenter extends BasePresenter<HotView> {
 
     public void loadHotVideoData(Map<String, String> params) {
         dataSource.getJsonData(params, HotVideo[].class, new IDataSource.FetchDataCallback() {
-                    @Override
-                    public void onEntityDataLoaded(Object data) {
-                        HotVideo[] hotVideos = (HotVideo[]) data;
-                        view.onShowVideoData(hotVideos);
-                    }
+            @Override
+            public void onEntityDataLoaded(Object data) {
+                HotVideo[] hotVideos = (HotVideo[]) data;
+                view.onShowVideoData(hotVideos);
+            }
 
-                    @Override
-                    public void onEntityDataNotAvailable() {
+            @Override
+            public void onEntityDataNotAvailable() {
 
             }
         });
@@ -55,7 +55,7 @@ public class HotPresenter extends BasePresenter<HotView> {
 
             @Override
             public void onEntityDataNotAvailable() {
-            view.onLoadMoreDataFailed();
+                view.onLoadMoreDataFailed();
             }
         });
     }

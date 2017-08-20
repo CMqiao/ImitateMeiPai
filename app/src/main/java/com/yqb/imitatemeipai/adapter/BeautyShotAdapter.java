@@ -36,7 +36,7 @@ public class BeautyShotAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return context.getResources().getString(R.string.title_hot);
             case 1:

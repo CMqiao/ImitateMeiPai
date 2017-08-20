@@ -19,7 +19,7 @@ import java.util.Arrays;
  * Created by QJZ on 2017/7/30.
  */
 
-public class APlayFragment extends BaseFragment implements APlayView{
+public class APlayFragment extends BaseFragment implements APlayView {
 
     private APlayVideoAdapter adapter;
 

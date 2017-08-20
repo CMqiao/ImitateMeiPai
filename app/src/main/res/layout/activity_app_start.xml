@@ -10,17 +10,17 @@
         android:id="@+id/iv_start_app_logo"
         android:layout_width="230dp"
         android:layout_height="190dp"
-        android:src="@drawable/img_app_start_logo"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:src="@drawable/img_app_start_logo" />
 
     <ImageView
         android:id="@+id/iv_start_app_name"
         android:layout_width="80dp"
         android:layout_height="32dp"
-        android:src="@drawable/img_app_start_company_name"
-        android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/img_app_start_company_name" />
 
 </RelativeLayout>

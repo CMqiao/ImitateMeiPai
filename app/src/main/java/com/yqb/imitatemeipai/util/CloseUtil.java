@@ -10,11 +10,12 @@ import java.io.IOException;
 public class CloseUtil {
 
     /**
-     *  关闭可关闭的对象
+     * 关闭可关闭的对象
+     *
      * @param closeable
      */
-    public static void close(Closeable closeable){
-        if(closeable != null){
+    public static void close(Closeable closeable) {
+        if (closeable != null) {
             try {
                 closeable.close();
             } catch (IOException e) {

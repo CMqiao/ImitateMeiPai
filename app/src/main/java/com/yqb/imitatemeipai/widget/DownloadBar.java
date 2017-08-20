@@ -35,9 +35,9 @@ public class DownloadBar extends FrameLayout {
         textView = (TextView) view.findViewById(R.id.tv_progress_download);
     }
 
-    public void onChangeProgress(int progress){
+    public void onChangeProgress(int progress) {
         progressBar.setProgress(progress);
-        textView.setText(progress+"%");
+        textView.setText(progress + "%");
         invalidate();
     }
 

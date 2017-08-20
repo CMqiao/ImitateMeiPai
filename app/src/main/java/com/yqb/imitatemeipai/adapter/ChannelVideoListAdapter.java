@@ -57,7 +57,7 @@ public class ChannelVideoListAdapter extends RecyclerView.Adapter {
         appendListData(dataList);
     }
 
-    public void resetDataArray(HotVideo[] dataArray){
+    public void resetDataArray(HotVideo[] dataArray) {
         this.dataList.clear();
         appendArrayData(dataArray);
     }

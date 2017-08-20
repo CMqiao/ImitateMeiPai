@@ -106,7 +106,7 @@ public class VideoSwitchPager2 extends RecyclerView {
         final float x = e.getRawX();
         final float y = e.getRawY();
 
-        if (mTouchStartPoint == null){
+        if (mTouchStartPoint == null) {
             mTouchStartPoint = new PointF();
         }
 
@@ -224,10 +224,12 @@ public class VideoSwitchPager2 extends RecyclerView {
                         action.update(-dx, -dy, time, mDecelerateInterpolator);
                     }
                 }
+
                 @Override
                 protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
                     return mMillisecondsPerInch / displayMetrics.densityDpi;
                 }
+
                 @Override
                 protected void onStop() {
                     super.onStop();

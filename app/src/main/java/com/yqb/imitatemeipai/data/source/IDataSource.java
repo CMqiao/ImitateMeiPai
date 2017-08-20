@@ -17,9 +17,11 @@ public interface IDataSource {
         void onEntityDataNotAvailable();
     }
 
-    interface OnDownloadListener{
+    interface OnDownloadListener {
         void onDownloadSuccess(String path);
+
         void onChangeProgress(int progress);
+
         void onDownloadFailed();
     }
 
@@ -27,5 +29,5 @@ public interface IDataSource {
 
     void changeURLPath(String urlPath);
 
-    void download(String url, String saveDir, OnDownloadListener listener) ;
+    void download(String url, String saveDir, OnDownloadListener listener);
 }

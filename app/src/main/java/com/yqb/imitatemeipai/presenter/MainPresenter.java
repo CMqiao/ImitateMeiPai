@@ -22,16 +22,16 @@ public class MainPresenter extends BasePresenter<MainView> {
     private ArrayList<CustomTabEntity> tabEntities = new ArrayList<>();
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
-    public MainPresenter(Context context){
+    public MainPresenter(Context context) {
         this.context = context;
     }
 
     @Override
     public void bindIView(MainView mainView) {
-        this.view=mainView;
+        this.view = mainView;
     }
 
-    public void showTabData(){
+    public void showTabData() {
         if (null == view) {
             return;
         }

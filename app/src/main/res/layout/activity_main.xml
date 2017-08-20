@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,12 +18,12 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorBgBottomTab"
-        app:tl_iconMargin="2dp"
         app:tl_iconHeight="28dp"
+        app:tl_iconMargin="2dp"
         app:tl_iconWidth="28dp"
+        app:tl_indicator_height="0dp"
         app:tl_textSelectColor="@color/colorFillColor"
         app:tl_textUnselectColor="@color/colorPrompt"
-        app:tl_textsize="12sp"
-        app:tl_indicator_height="0dp"/>
+        app:tl_textsize="12sp" />
 
 </RelativeLayout>

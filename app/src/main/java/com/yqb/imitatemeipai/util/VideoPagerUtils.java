@@ -3,6 +3,10 @@ package com.yqb.imitatemeipai.util;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+/**
+ * Created by QJZ on 2017/8/13.
+ */
+
 public class VideoPagerUtils {
 
     public static View getCenterXChild(RecyclerView recyclerView) {

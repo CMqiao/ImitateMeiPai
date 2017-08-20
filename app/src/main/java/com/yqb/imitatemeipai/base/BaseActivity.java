@@ -9,7 +9,7 @@ import com.yqb.imitatemeipai.util.ToastUtil;
  * Created by QJZ on 2017/7/29.
  */
 
-public abstract class BaseActivity extends AppCompatActivity{
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     protected abstract void init();
 
-    protected void onShowToast(String msg){
+    protected void onShowToast(String msg) {
         ToastUtil.toast(this, msg);
     }
 

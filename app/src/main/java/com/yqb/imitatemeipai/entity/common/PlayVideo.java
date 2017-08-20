@@ -7,7 +7,7 @@ package com.yqb.imitatemeipai.entity.common;
 public class PlayVideo {
     private String url;
     private int cover;
-    private  String avatar;
+    private String avatar;
     private String nickName;
 
     public PlayVideo(String avatar, int cover, String nickName, String url) {

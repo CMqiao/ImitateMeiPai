@@ -6,7 +6,7 @@ import com.flyco.tablayout.listener.CustomTabEntity;
  * Created by QJZ on 2017/7/29.
  */
 
-public class MainTabEntity implements CustomTabEntity{
+public class MainTabEntity implements CustomTabEntity {
     public String tabTitle;
     public int selectIcon;
     public int unSelectIcon;

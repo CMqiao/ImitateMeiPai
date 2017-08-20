@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by QJZ on 2017/8/2.
  */
 
-public class VideoCategory implements Serializable{
+public class VideoCategory implements Serializable {
     private int id;
     private int picture;
     private String title;

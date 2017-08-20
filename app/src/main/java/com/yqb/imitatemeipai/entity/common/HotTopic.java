@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by QJZ on 2017/8/1.
  */
 
-public class HotTopic implements Serializable{
+public class HotTopic implements Serializable {
     private String topic;
     private String coverUrl;
     private String playCount;

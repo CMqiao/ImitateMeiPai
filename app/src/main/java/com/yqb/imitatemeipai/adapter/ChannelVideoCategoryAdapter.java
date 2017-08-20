@@ -56,7 +56,7 @@ public class ChannelVideoCategoryAdapter extends RecyclerView.Adapter {
         appendListData(dataList);
     }
 
-    public void resetDataArray(VideoCategory[] dataArray){
+    public void resetDataArray(VideoCategory[] dataArray) {
         this.dataList.clear();
         appendArrayData(dataArray);
     }
@@ -100,11 +100,11 @@ public class ChannelVideoCategoryAdapter extends RecyclerView.Adapter {
         }
 
         public void bind(final VideoCategory videoCategory) {
-            if(0 != videoCategory.getPicture()){
+            if (0 != videoCategory.getPicture()) {
                 Glide.with(context).load(videoCategory.getPicture()).into(categoryIcon);
             }
 
-            if(null != videoCategory.getTitle()){
+            if (null != videoCategory.getTitle()) {
                 categoryTitle.setText(videoCategory.getTitle());
             }
 

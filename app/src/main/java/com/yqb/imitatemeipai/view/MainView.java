@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * Created by QJZ on 2017/7/29.
  */
 
-public interface MainView extends IBaseView{
-    void onShowTabData(ArrayList<CustomTabEntity>tabEntities, ArrayList<Fragment> fragments);
-
+public interface MainView extends IBaseView {
+    void onShowTabData(ArrayList<CustomTabEntity> tabEntities, ArrayList<Fragment> fragments);
 }

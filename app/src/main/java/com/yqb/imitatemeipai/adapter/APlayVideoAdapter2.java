@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.yqb.imitatemeipai.R;
 import com.yqb.imitatemeipai.data.source.IDataSource;
 import com.yqb.imitatemeipai.entity.common.PlayVideo;
@@ -141,6 +143,13 @@ public class APlayVideoAdapter2 extends RecyclerView.Adapter {
             cover.setImageResource(playVideo.getCover());
             nickName.setText(playVideo.getNickName());
             Glide.with(context).load(playVideo.getAvatar()).into(avatar);
+
+            Glide.with(context).load(playVideo.getAvatar()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    avatar.setImageBitmap(resource);
+                }
+            });
 
             surfaceView.getHolder().addCallback(this);
 

@@ -12,7 +12,7 @@ import com.yqb.imitatemeipai.view.MainView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity implements MainView{
+public class MainActivity extends BaseActivity implements MainView {
 
     private CommonTabLayout commonTabLayout;
     private FrameLayout frameLayout;
@@ -25,8 +25,8 @@ public class MainActivity extends BaseActivity implements MainView{
 
     @Override
     protected void findViews() {
-        commonTabLayout = (CommonTabLayout)findViewById(R.id.tl_main_bottom);
-        frameLayout = (FrameLayout)findViewById(R.id.fl_main_content);
+        commonTabLayout = (CommonTabLayout) findViewById(R.id.tl_main_bottom);
+        frameLayout = (FrameLayout) findViewById(R.id.fl_main_content);
     }
 
     @Override

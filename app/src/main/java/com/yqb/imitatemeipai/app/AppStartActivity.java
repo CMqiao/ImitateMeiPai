@@ -31,7 +31,7 @@ public class AppStartActivity extends BaseActivity {
         new LauncherThread().start();
     }
 
-    class LauncherThread extends Thread{
+    class LauncherThread extends Thread {
         @Override
         public void run() {
             super.run();

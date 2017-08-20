@@ -21,7 +21,7 @@ import com.yqb.imitatemeipai.view.HotDetailView;
 
 import java.util.HashMap;
 
-public class VideoPlayActivity extends BaseActivity implements HotDetailView, View.OnKeyListener, View.OnClickListener{
+public class VideoPlayActivity extends BaseActivity implements HotDetailView, View.OnKeyListener, View.OnClickListener {
 
     private WebView webView;
     private HotVideo hotVideo;
@@ -54,9 +54,9 @@ public class VideoPlayActivity extends BaseActivity implements HotDetailView, Vi
         Intent intent = getIntent();
         hotVideo = (HotVideo) intent.getExtras().get("hot_video");
 
-       titleTextView.setText(hotVideo.getScreen_name());
+        titleTextView.setText(hotVideo.getScreen_name());
 
-       backImageView.setOnClickListener(this);
+        backImageView.setOnClickListener(this);
 
         presenter = new HotDetailPresenter(this);
         presenter.bindIView(this);
@@ -65,7 +65,7 @@ public class VideoPlayActivity extends BaseActivity implements HotDetailView, Vi
 
     }
 
-    private void initWebView(){
+    private void initWebView() {
 /*        final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
@@ -88,16 +88,15 @@ public class VideoPlayActivity extends BaseActivity implements HotDetailView, Vi
         webSettings.setAppCacheEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
-        webView.setWebChromeClient(new WebChromeClient(){
+        webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                    if(newProgress==100){
-                        progressBar.setVisibility(View.GONE);
-                    }
-                    else{
-                        progressBar.setVisibility(View.VISIBLE);
-                        progressBar.setProgress(newProgress);
-                    }
+                if (newProgress == 100) {
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setProgress(newProgress);
+                }
             }
         });
         webView.setWebViewClient(new WebViewClient());
@@ -109,11 +108,11 @@ public class VideoPlayActivity extends BaseActivity implements HotDetailView, Vi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_back:
-                if(webView.canGoBack()){
+                if (webView.canGoBack()) {
                     webView.goBack();
-                }else{
+                } else {
                     VideoPlayActivity.this.finish();
                 }
                 break;
@@ -126,19 +125,20 @@ public class VideoPlayActivity extends BaseActivity implements HotDetailView, Vi
     public void onWebViewLoadUrl(String url) {
         HashMap<String, String> headerMap = new HashMap<>();
         headerMap.put("Cache-Control", "public, max-age=" + 0);
-        webView.loadUrl(url,headerMap);
+        webView.loadUrl(url, headerMap);
     }
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
-        switch (event.getAction()){
+        switch (event.getAction()) {
             case KeyEvent.ACTION_DOWN:
                 if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
                     webView.goBack();
                     return true;
                 }
                 break;
-            default: break;
+            default:
+                break;
         }
         return false;
     }

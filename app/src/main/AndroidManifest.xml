@@ -42,7 +42,7 @@
         <!--频道-->
         <activity
             android:name=".app.main.channel.ChannelVideoListActivity"
-            android:theme="@style/Theme.AppVideoDetail"/>
+            android:theme="@style/Theme.AppVideoDetail" />
         <!--End of 频道-->
 
     </application>

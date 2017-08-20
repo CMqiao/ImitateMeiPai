@@ -6,7 +6,7 @@ package com.yqb.imitatemeipai.util;
 
 public class URLUtil {
     /**
-     *首页视频列表接口
+     * 首页视频列表接口
      */
     public static final String VIDEO_LIST = "/output/channels_topics_timeline.json";
 }

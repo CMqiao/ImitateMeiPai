@@ -26,17 +26,4 @@ public class SPUtil {
         return instance;
     }
 
-    //Token
-    public String getToken() {
-        return sharedPreferences.getString("token", "");
-    }
-
-    public void saveToken(String token) {
-        editor.putString("token", token).commit();
-    }
-
-    public void deleteToken(){
-        editor.putString("token", "").commit();
-    }
-
 }

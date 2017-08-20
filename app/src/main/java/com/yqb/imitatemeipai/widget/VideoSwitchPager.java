@@ -61,7 +61,7 @@ public class VideoSwitchPager extends ViewGroup {
         initView();
     }
 
-    private void initView(){
+    private void initView() {
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
@@ -72,7 +72,7 @@ public class VideoSwitchPager extends ViewGroup {
         mScroller = new Scroller(getContext());
     }
 
-    public void configVideoPlayer(){
+    public void configVideoPlayer() {
         videoPlayView = (SurfaceView) getChildAt(position).findViewById(R.id.sv_video_play);
         playImage = (ImageView) getChildAt(position).findViewById(R.id.iv_video_play);
 
@@ -82,7 +82,7 @@ public class VideoSwitchPager extends ViewGroup {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        holder=videoPlayView.getHolder();
+        holder = videoPlayView.getHolder();
         holder.addCallback(new MyCallBack());
         try {
             player.prepareAsync();
@@ -92,22 +92,22 @@ public class VideoSwitchPager extends ViewGroup {
         playImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (player.isPlaying()){
+                if (player.isPlaying()) {
                     player.pause();
                     playImage.setImageResource(R.mipmap.ic_video_pause);
-                }else{
+                } else {
                     player.start();
                     playImage.setImageResource(R.mipmap.ic_video_play);
                 }
             }
         });
-        Log.d(TAG, "config"+position);
+        Log.d(TAG, "config" + position);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if(mAdapter != null) {
+        if (mAdapter != null) {
             for (int i = 0; i < mAdapter.getCount(); i++) {
                 addView(mAdapter.getView(i));
             }
@@ -131,15 +131,15 @@ public class VideoSwitchPager extends ViewGroup {
         for(int i=0 ; i < 3; i++){
             getChildAt(i).layout(l, i*mScreenHeight, r, (i+1)*mScreenHeight);
         }*/
-        if(mAdapter != null){
+        if (mAdapter != null) {
             lp.height = mScreenHeight * mAdapter.getCount();
             setLayoutParams(lp);
 
-            for(int i=0 ; i < mAdapter.getCount(); i++){
-                getChildAt(i).layout(l, i*mScreenHeight, r, (i+1)*mScreenHeight);
+            for (int i = 0; i < mAdapter.getCount(); i++) {
+                getChildAt(i).layout(l, i * mScreenHeight, r, (i + 1) * mScreenHeight);
             }
         }
-        Log.d(TAG,"layout");
+        Log.d(TAG, "layout");
     }
 
     @Override
@@ -147,7 +147,7 @@ public class VideoSwitchPager extends ViewGroup {
 
         int y = (int) event.getY();
 
-        switch (event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mLastY = y;
                 mScrollYStart = getScrollY();
@@ -168,24 +168,20 @@ public class VideoSwitchPager extends ViewGroup {
 
                 if (dScrollY > 0)// 往上滑动
                 {
-                    if (dScrollY > mScreenHeight / 2.0 && position != mAdapter.getCount()-1)
-                    {
+                    if (dScrollY > mScreenHeight / 2.0 && position != mAdapter.getCount() - 1) {
                         mScroller.startScroll(0, mScrollYEnd, 0, mScreenHeight - dScrollY);
                         position++;
                         configVideoPlayer();
-                    } else
-                    {
+                    } else {
                         mScroller.startScroll(0, mScrollYEnd, 0, -dScrollY, 1000);
                     }
                 }
                 if (dScrollY < 0)// 往下滑动
                 {
-                    if (-dScrollY > mScreenHeight / 2.0 && position != 0)
-                    {
+                    if (-dScrollY > mScreenHeight / 2.0 && position != 0) {
                         mScroller.startScroll(0, mScrollYEnd, 0, -mScreenHeight - dScrollY, 1000);
                         position--;
-                    } else
-                    {
+                    } else {
                         mScroller.startScroll(0, mScrollYEnd, 0, -dScrollY, 1000);
                     }
                 }
@@ -195,7 +191,7 @@ public class VideoSwitchPager extends ViewGroup {
         return true;
     }
 
-    class MyCallBack implements SurfaceHolder.Callback{
+    class MyCallBack implements SurfaceHolder.Callback {
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
@@ -215,17 +211,19 @@ public class VideoSwitchPager extends ViewGroup {
 
     @Override
     public void computeScroll() {
-        if(mScroller.computeScrollOffset()){
+        if (mScroller.computeScrollOffset()) {
             scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
             postInvalidate();
         }
     }
 
-    public static abstract class Adapter{
+    public static abstract class Adapter {
 
         public abstract int getCount();
+
         public abstract View getView(int position);
-        public abstract   String getVideoUrl(int position);
+
+        public abstract String getVideoUrl(int position);
 
     }
 

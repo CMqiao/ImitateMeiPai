@@ -17,16 +17,16 @@ public class DataSource implements IDataSource {
     private LocalDataSource localDataSource;
     private RemoteDataSource remoteDataSource;
 
-    public  DataSource(Context context){
+    public DataSource(Context context) {
         remoteDataSource = new RemoteDataSource(context);
     }
 
-    public DataSource(String urlPath, Context context){
-        remoteDataSource = new RemoteDataSource(urlPath ,context);
+    public DataSource(String urlPath, Context context) {
+        remoteDataSource = new RemoteDataSource(urlPath, context);
     }
 
     @Override
-    public void getJsonData(Map<String, String>params, Class resultDataClass, FetchDataCallback callback) {
+    public void getJsonData(Map<String, String> params, Class resultDataClass, FetchDataCallback callback) {
         remoteDataSource.getJsonData(params, resultDataClass, callback);
     }
 

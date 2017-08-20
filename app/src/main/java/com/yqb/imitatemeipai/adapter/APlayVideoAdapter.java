@@ -15,7 +15,7 @@ import java.util.List;
  * Created by QJZ on 2017/8/8.
  */
 
-public class APlayVideoAdapter extends VideoSwitchPager.Adapter{
+public class APlayVideoAdapter extends VideoSwitchPager.Adapter {
 
     private Context context;
     private List<PlayVideo> dataList = new ArrayList<>();

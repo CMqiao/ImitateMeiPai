@@ -26,7 +26,7 @@ public class APlayPresenter extends BasePresenter<APlayView> {
         this.view = aPlayView;
     }
 
-    public void loadPlayVideoData(){
+    public void loadPlayVideoData() {
         view.onShowVideoData(new APlayDataSource(context).generateData());
     }
 

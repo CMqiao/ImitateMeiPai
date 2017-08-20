@@ -56,7 +56,7 @@ public class ChannelHotTopicAdapter extends RecyclerView.Adapter {
         appendListData(dataList);
     }
 
-    public void resetDataArray(HotTopic[] dataArray){
+    public void resetDataArray(HotTopic[] dataArray) {
         this.dataList.clear();
         appendArrayData(dataArray);
     }
@@ -101,16 +101,16 @@ public class ChannelHotTopicAdapter extends RecyclerView.Adapter {
         }
 
         public void bind(final HotTopic hotTopic) {
-            if(null != hotTopic.getCoverUrl()){
+            if (null != hotTopic.getCoverUrl()) {
                 Glide.with(context).load(hotTopic.getCoverUrl()).into(coverImageView);
             }
 
-            if(null != hotTopic.getTopic()){
-                topicTitle.setText("#"+hotTopic.getTopic()+"#");
+            if (null != hotTopic.getTopic()) {
+                topicTitle.setText("#" + hotTopic.getTopic() + "#");
             }
 
-            if(null != hotTopic.getPlayCount()){
-                playCount.setText(hotTopic.getPlayCount()+"万播放");
+            if (null != hotTopic.getPlayCount()) {
+                playCount.setText(hotTopic.getPlayCount() + "万播放");
             }
 
             rootView.setOnClickListener(new View.OnClickListener() {

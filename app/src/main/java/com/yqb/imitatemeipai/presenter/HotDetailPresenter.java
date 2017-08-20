@@ -26,7 +26,7 @@ public class HotDetailPresenter extends BasePresenter<HotDetailView> {
         this.view = hotDetailView;
     }
 
-    public void loadUrl(String url){
+    public void loadUrl(String url) {
         view.onWebViewLoadUrl(url);
     }
 

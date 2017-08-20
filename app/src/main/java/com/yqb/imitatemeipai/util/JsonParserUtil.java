@@ -11,7 +11,7 @@ public class JsonParserUtil {
 
     static ObjectMapper objectMapper;
 
-    public static <T> T  decode(String content, Class<T> valueType) {
+    public static <T> T decode(String content, Class<T> valueType) {
         if (objectMapper == null) {
             objectMapper = new ObjectMapper();
         }
@@ -23,7 +23,7 @@ public class JsonParserUtil {
         return null;
     }
 
-    public  static String entityToJson(Object object){
+    public static String entityToJson(Object object) {
         if (objectMapper == null) {
             objectMapper = new ObjectMapper();
         }

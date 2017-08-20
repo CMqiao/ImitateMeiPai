@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by QJZ on 2017/7/31.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HotVideo implements Serializable{
+public class HotVideo implements Serializable {
     private int id;
     private int user_id;
     private String url;
