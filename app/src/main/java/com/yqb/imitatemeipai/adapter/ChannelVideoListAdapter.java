@@ -2,6 +2,7 @@ package com.yqb.imitatemeipai.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.yqb.imitatemeipai.R;
 import com.yqb.imitatemeipai.app.main.beautyshot.detail.VideoPlayActivity;
 import com.yqb.imitatemeipai.entity.response.HotVideo;
@@ -105,7 +108,12 @@ public class ChannelVideoListAdapter extends RecyclerView.Adapter {
 
         public void bind(final HotVideo hotVideo) {
             Glide.with(context).load(hotVideo.getCover_pic()).into(cover);
-            Glide.with(context).load(hotVideo.getAvatar()).into(avatar);
+            Glide.with(context).load(hotVideo.getAvatar()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    avatar.setImageBitmap(resource);
+                }
+            });
             nickName.setText(hotVideo.getScreen_name());
             likeCount.setText(String.valueOf(hotVideo.getLikes_count()));
             rootView.setOnClickListener(new View.OnClickListener() {
